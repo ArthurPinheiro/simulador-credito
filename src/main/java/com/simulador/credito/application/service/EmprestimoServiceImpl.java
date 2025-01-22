@@ -52,9 +52,9 @@ public class EmprestimoServiceImpl implements EmprestimoService {
             log.info("Calculando parcela de mensalidade");
             valicaoValoresParcelaMensal(valorEmprestimo, taxaJurosAnual, prazoMeses);
             BigDecimal taxaMensal = BigDecimal.valueOf(taxaJurosAnual / 12);
-            BigDecimal umMaisTaxa = BigDecimal.ONE.add(taxaMensal);
-            BigDecimal potencia = BigDecimal.ONE.divide(umMaisTaxa.pow(prazoMeses), 10, RoundingMode.HALF_UP);
-            BigDecimal divisor = BigDecimal.ONE.subtract(potencia);
+            BigDecimal taxaMensalSomada = BigDecimal.ONE.add(taxaMensal);
+            BigDecimal totalPagamento = BigDecimal.ONE.divide(taxaMensalSomada.pow(prazoMeses), 10, RoundingMode.HALF_UP);
+            BigDecimal divisor = BigDecimal.ONE.subtract(totalPagamento);
 
             return valorEmprestimo.multiply(taxaMensal).divide(divisor, RoundingMode.HALF_UP);
         } catch (ArithmeticException e) {
