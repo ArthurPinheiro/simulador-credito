@@ -62,8 +62,7 @@ class EmprestimoControllerTest {
 
     @Test
     void testeDesempenhoSimulacoes() throws InterruptedException {
-        // Configuração do teste
-        int totalSimulacoes = 10_000; // Volume alto
+        int totalSimulacoes = 10_000;
         int threads = Runtime.getRuntime().availableProcessors(); // Quantidade de threads
         ExecutorService executor = Executors.newFixedThreadPool(threads);
 
@@ -93,7 +92,6 @@ class EmprestimoControllerTest {
 
             tasks.add(() -> {
                 EmprestimoResponse response = controller.simularEmprestimo(request).getBody();
-                // Verifique se o resultado é válido
                 return response.valorTotal().compareTo(request.valorEmprestimo()) > 0;
             });
         }

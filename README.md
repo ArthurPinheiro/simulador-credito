@@ -98,6 +98,11 @@ curl -X POST http://localhost:8080/v1/emprestimos/simular-multiplos \
 ]
 ```
 
+### 3. Swagger
+**Descrição:** Para acessar o swagger.
+
+**Endpoint:** `GET http://localhost:8080/swagger-ui/index.html`
+
 ## Estrutura do Projeto
 - **Infra:** Código relacionado à comunicação externa.
 - **Presentation:** Camada que contém os controllers da aplicação.

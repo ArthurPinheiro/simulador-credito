@@ -23,7 +23,7 @@ public interface EmprestimoOperations {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Sucesso"),
-            @ApiResponse(responseCode = "400", description = "Falha na Requisição", content =
+            @ApiResponse(responseCode = "400", description = "Dados inválidos", content =
                     {
                             @Content(mediaType = "application/json", schema =
                             @Schema(implementation = ResponseApiErro.class))
@@ -43,7 +43,7 @@ public interface EmprestimoOperations {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Sucesso"),
-            @ApiResponse(responseCode = "400", description = "Falha na Requisição", content =
+            @ApiResponse(responseCode = "400", description = "Dados inválidos", content =
                     {
                             @Content(mediaType = "application/json", schema =
                             @Schema(implementation = ResponseApiErro.class))
