@@ -6,6 +6,8 @@ import com.simulador.credito.application.factory.TaxaJurosFactory;
 import com.simulador.credito.application.strategy.TaxaJurosStrategy;
 import com.simulador.credito.presentation.rest.v1.dto.EmprestimoRequest;
 import com.simulador.credito.presentation.rest.v1.dto.EmprestimoResponse;
+
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,13 +19,11 @@ import java.time.Period;
 
 @Service
 @Log4j2
+@RequiredArgsConstructor
 public class EmprestimoServiceImpl implements EmprestimoService {
 
     public final EmailFactory emailFactory;
-
-    public EmprestimoServiceImpl(EmailFactory emailFactory) {
-        this.emailFactory = emailFactory;
-    }
+    public final TaxaJurosFactory factory;
 
     @Override
     public EmprestimoResponse simularCredito(EmprestimoRequest request) {
@@ -43,7 +43,7 @@ public class EmprestimoServiceImpl implements EmprestimoService {
     }
 
     private double taxaJuros(int faixaEtaria) {
-        TaxaJurosStrategy strategy = TaxaJurosFactory.obterTaxaJuros(faixaEtaria);
+        TaxaJurosStrategy strategy = factory.obterTaxaJuros(faixaEtaria);
         return strategy.calcularTaxaJuros();
     }
 
