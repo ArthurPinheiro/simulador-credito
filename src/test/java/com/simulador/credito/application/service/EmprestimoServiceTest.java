@@ -2,6 +2,7 @@ package com.simulador.credito.application.service;
 
 import com.simulador.credito.application.exception.BusinessException;
 import com.simulador.credito.application.factory.EmailFactory;
+import com.simulador.credito.application.strategy.TaxaJurosStrategy;
 import com.simulador.credito.presentation.rest.v1.dto.EmprestimoRequest;
 import com.simulador.credito.presentation.rest.v1.dto.EmprestimoResponse;
 import org.junit.jupiter.api.Assertions;
