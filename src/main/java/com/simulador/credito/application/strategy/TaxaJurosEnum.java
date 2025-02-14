@@ -10,18 +10,19 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public enum TaxaJurosEnum {
     
-    ATE_25(25, TaxaJurosAte25.class),
-    ATE_40(40, TaxaJurosDe26A40.class),
-    ATE_60(60, TaxaJurosDe40A60.class),
-    MAIOR_60(61, TaxaJurosMaiorQue60.class);
+    ATE_25(25, "taxajurosAte25"),
+    ATE_40(40, "taxajurosDe26A40"),
+    ATE_60(60, "taxajurosDe40A60"),
+    MAIOR_60(61, "taxajurosMaiorQue60");
 
     public final int faixaEtaria;
-    public final Class<? extends TaxaJurosStrategy> strategy;
+    public final String strategy;
 
-    public static TaxaJurosEnum fromTaxaJuros(int faixaEtaria) {
+    public static String fromTaxaJuros(int faixaEtaria) {
         return Arrays.stream(values())
         .filter(idade -> idade.faixaEtaria >= faixaEtaria)
         .findFirst()
+        .map(TaxaJurosEnum::getStrategy)
         .orElseThrow(() -> new RuntimeException());
     }
 }

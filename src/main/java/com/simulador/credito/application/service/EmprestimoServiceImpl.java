@@ -2,7 +2,7 @@ package com.simulador.credito.application.service;
 
 import com.simulador.credito.application.exception.BusinessException;
 import com.simulador.credito.application.factory.EmailFactory;
-import com.simulador.credito.application.factory.TaxaJurosFactory;
+import com.simulador.credito.application.strategy.TaxaJurosEnum;
 import com.simulador.credito.application.strategy.TaxaJurosStrategy;
 import com.simulador.credito.presentation.rest.v1.dto.EmprestimoRequest;
 import com.simulador.credito.presentation.rest.v1.dto.EmprestimoResponse;
@@ -16,14 +16,15 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Map;
 
 @Service
 @Log4j2
 @RequiredArgsConstructor
 public class EmprestimoServiceImpl implements EmprestimoService {
 
-    public final EmailFactory emailFactory;
-    public final TaxaJurosFactory factory;
+    private final EmailFactory emailFactory;
+    private final Map<String, TaxaJurosStrategy> strategyMap;
 
     @Override
     public EmprestimoResponse simularCredito(EmprestimoRequest request) {
@@ -43,7 +44,8 @@ public class EmprestimoServiceImpl implements EmprestimoService {
     }
 
     private double taxaJuros(int faixaEtaria) {
-        TaxaJurosStrategy strategy = factory.obterTaxaJuros(faixaEtaria);
+        String strategyType = TaxaJurosEnum.fromTaxaJuros(faixaEtaria);
+        var strategy = strategyMap.get(strategyType);
         return strategy.calcularTaxaJuros();
     }
 
