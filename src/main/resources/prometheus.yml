@@ -1,0 +1,26 @@
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+    static_configs:
+      - targets: ['127.0.0.1:9090']
+      - targets: [ 'host.docker.internal:8080' ] # O endpoint da sua aplicação Spring Boot
+        labels:
+          application: book-api
+      - job_name: 'spring-boot-actuator'
+    scrape_interval: 5s # Define a frequência com que o Prometheus deve coletar métricas
+    metrics_path: '/actuator/prometheus' # O caminho onde as métricas do Micrometer são expostas
+#    static_configs:
+#      - targets: ['host.docker.internal:8080'] # O endpoint da sua aplicação Spring Boot
+#        labels:
+#          application: book-api
+
+  - job_name: 'grafana'
+    metrics_path: '/'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['127.0.0.1:3000']
